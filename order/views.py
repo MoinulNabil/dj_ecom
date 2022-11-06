@@ -18,7 +18,6 @@ from .forms import (
     CheckoutForm
 )
 from cart.cart import Cart
-from core.utilities import send_email_with_pdf
 
 
 PAYMENT_INFORMATION = {}
