@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} Products {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    {% if products %}
+    <div class="row py-4">
+    {% for product in products %}
+        <div class="col-md-4 my-2">
+            {% include 'product.html' %}
+        </div>
+    {% endfor %}
+    {% else %}
+    {% include 'no-result-found.html' %}
+    {% endif %}
+    </div>
+</div>
+
+
+{% endblock content %}

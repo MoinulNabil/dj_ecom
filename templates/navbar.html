@@ -1,0 +1,35 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand ms-lg-5 ms-sm-0 pb-2" href="{% url 'home' %}">Django Shop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse me-4" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 me-4 mb-lg-0">
+          <li class="nav-item px-1">
+            <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item px-1">
+            <a class="nav-link" aria-current="page" href="{% url 'list-products' %}">Products</a>
+          </li>
+          <li class="nav-item px-1 cart-icon">
+            <a class="nav-link" href="{% url 'cart-details' %}"><i class="fa fa-shopping-cart"></i> <span class="cart-count">{{cart|length}}</span></a>
+          </li>
+          <li class="nav-item px-1 dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Category
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories %}
+              <li><a class="dropdown-item" href="{% url 'category-products' category.slug %}">{{category.title}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" action="{% url 'search' %}" method="GET">
+          <input class="form-control me-2" name="search_by" type="search" placeholder="Search" aria-label="Search" required>
+          <button class="btn btn-outline-light" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>

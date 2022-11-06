@@ -1,0 +1,16 @@
+<div class="card order-summary px-2" style="background-color: rgba(255,255,255,.55);">
+    <div class="card-body">
+        <div class="header">
+            <h5 class="text-dark">Order Summary</h5>
+        </div>
+        <hr>
+        {% for product in cart %}
+        <div class="d-flex flex-row justify-space-between py-1">
+            <p>{{product.product.title|truncatechars:15}} X {{product.quantity}}</p>
+            <span class="ms-auto">&#2547; {{product.subtotal|floatformat:"2"}}</span>
+        </div>
+        {% endfor %}
+        <hr>
+        <p class="text-center"><strong>Total = </strong>&#2547; {{cart.get_total|floatformat:"2"}}</p>
+    </div>
+</div>

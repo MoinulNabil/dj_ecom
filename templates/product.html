@@ -1,0 +1,25 @@
+    <div class="card product-card d-flex align-items-center justify-content-center card-box-shadow">
+        <a class="text-decoration-none" href="{% url 'product-details' product.slug %}">
+            <div class="product-image d-flex align-items-center justify-content-center pb-3">
+                <img class="img-fluid"  src={{product.thumbnail}} alt="" style="height: 320px;">
+            </div>
+        </a>
+        <div class="card-body">
+            <a class="text-decoration-none text-dark" href="{% url 'product-details' product.slug %}">
+                <h4 class="text-monospace">{{product.title|truncatechars:30}}</h4>
+            </a>
+            {% if product.discount_in_percentage > 0 %}
+            <p class="text-monospace">
+                <del class="px-2">&#2547; {{product.price}}</del>
+                <span class="px-2">&#2547; {{product.get_price|floatformat:"2"}}</span>
+            </p>
+            {% else %}
+            <p class="text-monospace">
+                <span class="px-2">&#2547; {{product.get_price}}</span>
+            </p>
+            {% endif %}
+        </div>
+        <a href="{% url 'product-details' product.slug %}" class="d-flex text-white text-decoration-none product-view justify-content-center" style="width: 100%;">
+            <span class="text-monospace">View</span>
+        </a>
+    </div>

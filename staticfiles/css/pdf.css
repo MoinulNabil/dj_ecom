@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.row {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.shop-title {
+    text-align: center;
+}
+.total-item {
+    text-align: center;
+}
+.info {
+    padding-bottom: 5px;
+    text-decoration: underline;
+}
+#table {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+}
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #0c0c0c;
+    color: white;
+    }
+
+#table tr:nth-child(even){
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+#table tr:hover {
+    background-color: #ddd;
+    text-align: center;
+}
+.order-total {
+    text-align: center;
+}
+td, th {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: left;
+}

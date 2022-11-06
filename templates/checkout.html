@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %} Checkout {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row py-4 justify-content-center">
+        <div class="col-md-6">
+            <h4 class="text-monospace text-muted text-center">Checkout for payment</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row py-4 justify-content-center px-4">
+        <div class="col-md-8 px-3">
+            {% if messages  %}
+            {% for message in messages %}
+                {% include 'message.html' %}
+            {% endfor %}
+            {% endif %}
+            <form action="" method="POST" id="checkout-form" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 form-group my-2">
+                        <label for="first_name">Firstname</label>
+                        {{form.first_name}}
+                        {{form.first_name.errors}}
+                    </div>
+                    <div class="col-md-6 form-group my-2">
+                        <label for="last_name">Lasstname</label>
+                        {{form.last_name}}
+                        {{form.last_name.errors}}
+                    </div>
+                    <div class="col-md-6 form-group my-2">
+                        <label for="email">Email</label>
+                        <input class="form-control" name="email" {% if request.user.is_authenticated and not form.is_bound %} value="{{request.user.email}}" {% elif form.is_bound %} value="{{form.email.value}}" {% endif %} type="text" >
+                        {{form.email.errors}}
+                    </div>
+                    <div class="col-md-6 form-group my-2">
+                        <label for="phone_number">Phone</label>
+                        <input class="form-control" type="tel" name="phone_number" {% if request.user.is_authenticated and not form.is_bound %} value="{{request.user.phone_number}}" {% elif form.is_bound %} value="{{form.phone_number.value}}" {% endif %} >
+                        {{form.phone_number.errors}}
+                    </div>
+                    <div class="col-md-6 form-group my-2">
+                        <label for="city">City</label>
+                        {{form.city}}
+                        {{form.city.errors}}
+                    </div>
+                    <div class="col-md-6 form-group my-2">
+                        <label for="zip_code">Zip Code</label>
+                        {{form.zip_code}}
+                        {{form.zip_code.errors}}
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-12 form-group my-2">
+                        <label for="address">Country</label>
+                        {{form.country}}
+                        {{form.country.errors}}
+                    </div>
+                    <div class="col-md-12 form-group my-2">
+                        <label for="address">Address</label>
+                        {{form.address}}
+                        {{form.address.errors}}
+                    </div>
+                   
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 my-4">
+            {% include 'order-summary.html' %}
+            <div class="my-2 form-group d-grid gap-2">
+                <button type="submit" form="checkout-form" class="btn btn-dark btn-block">Complete your payment</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

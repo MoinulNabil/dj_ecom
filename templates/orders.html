@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %} Profile {% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center py-5">
+        <div class="col-md-12">
+            <h4 class="text-monospace text-muted mb-4">Total orders ({{paginator.object_list.count}})</h4>
+            <hr>
+        </div>
+        <div class="col-md-12">
+          {% include 'message.html' %}
+        </div>
+        <div class="col-md-12 py-4">
+            {% if queryset %}
+            <table class="table">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Invoice Id</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for order in queryset %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</td>
+                    <td>{{order.invoice_id}}</td>
+                    <td>{{order.created_date|date:'Y-m-d'}}</td>
+                    <td>&#2547; {{order.total}}</td>
+                    <td>{{order.status}}</td>
+                    <td>
+                        <i type="button" data-bs-toggle="modal" data-bs-target="#exampleModal_{{order.id}}" style="cursor: pointer;" class="fa fa-eye"></i>
+                    </td>
+                  </tr>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal_{{order.id}}" tabindex="-1" aria-labelledby="exampleModalLabel_{{order.id}}" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel_{{order.id}}"><strong>Total : </strong>&#2547; {{order.total}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for order_item in order.order_items.all %}
+                            {% with product=order_item.product %}
+                            <div class="row mb-2 py-4">
+                                <div class="col-md-4 px-4">
+                                    <div class="product-image">
+                                        <img src="{{product.thumbnail}}" alt="product" style="width: 100%;" height="220px">
+                                    </div>
+                                </div>
+                                <div class="col-md-8 px-4 my-4">
+                                    <h4 class="mb-3">{{product.title}}</h4>
+                                    <p class=""><strong>Price : </strong>&#2547; {{order_item.price}}</p>
+                                    <p class=""><strong>Quantity : </strong>{{order_item.quantity}}</p>
+                                    <p class=""><strong>Subtotal : </strong>&#2547; {{order_item.get_total}}</p>
+                                    {% for variant in order_item.variants.all %}
+                                        <p><strong>{{variant.product_variation.variation.title}}: </strong>{{variant.title}}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <hr>
+                            {% endwith %}
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <h4 class="text-monospace text-center my-5">No queryset till now</h4>
+            {% endif %}
+        </div>
+        <div class="col-md-8 my-3">
+          {% include 'pagination.html' %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Invoice</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <h3 class="shop-title">Django Shop</h3>
+        <hr>
+        <p>Invoice No: <span>{{order.id}}</span></p>
+        <p>{{order.created_date|date:'Y-m-d'}}</p>
+        <h4 class="info">Bill to</h4>
+        <p><strong>Name: </strong>{{order.first_name}} {{order.last_name}}</p>
+        <p><strong>Phone Number: </strong>{{order.phone_number}}</p>
+        <p><strong>Address: </strong>{{order.address}}</p>
+        <h4 class="total-item">Total Items ({{order.order_items.count}}) </h4>
+        <hr>
+    
+        <table class="table" id="table">
+            <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Subotal</th>
+            </tr>
+            {% for item in order.order_items.all %}
+            <tr class="items">
+            <td>
+                <p class="title">
+                    {{item.product.title|truncatechars:40}}
+                </p>
+            </td>
+            <td>{{item.price}} </td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.get_total}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        <p class="order-total"><strong>Total = </strong>&#2547; {{order.total}}</p>
+    
+        </div>
+    </div>
+</body>
+</html>
