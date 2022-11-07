@@ -160,20 +160,7 @@ def save_order(request, transaction_id):
 
     order.order_items.add(*total_items)
     cart.clear()
-
-    send_email_with_pdf(
-        Order,
-        order.id,
-        f"Order invoice from Nabil Shop",
-        f"Hey, {PAYMENT_INFORMATION['first_name']}!! Thank you choosing our shop. Find your invoice attached below. Happy Shopping (:",
-        [PAYMENT_INFORMATION['email']]
-    )
-
-    if request.user.is_authenticated:
-        messages.success(request, "Your order has been successfull. !!")
-        return redirect("orders")
-
-    else:
-        messages.success(request, "Your order has been successfull")
-        return redirect("home")
+    
+    messages.success(request, "Your order has been successfull")
+    return redirect("home")
 
